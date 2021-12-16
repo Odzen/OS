@@ -10,6 +10,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include "leercadena.h"
+#include <stdlib.h>
+
 
 int main(int argc, char *argv[]) {
   //Un array de tamaño BUFSIZ
@@ -27,18 +29,33 @@ int main(int argc, char *argv[]) {
     printf("> ");
     //Leo teclado como padre
     leer_de_teclado(BUFSIZ,comando);
-    //Hago fork
-    pid=fork();
+    char wordQuit[]="quit";
+    const char *quit;
+    quit=&wordQuit[0];
 
-    if(pid<0){
-      printf("No pude crear un procesor\n");
-      return 2;
-    }else if(pid==0){ //El hijo ejecuta el comando
-      vector = de_cadena_a_vector(comando);
-      execvp(vector[0],vector);
-    }else{//El papa esperará la ejecución del hijo
-        wait(NULL);
-    }
+    printf( "Quit: %s\n", quit );
+
+      //Hago fork
+      pid=fork();
+
+      if(pid<0){
+        printf("No pude crear un procesor\n");
+        return 2;
+      }else if(pid==0){ //El hijo ejecuta el comando
+        vector = de_cadena_a_vector(comando);
+            printf( "Command: %s\n", vector[0] );
+
+            printf("%d\n", (vector[0][0]== wordQuit[0]));
+
+        if((vector[0][0]== wordQuit[0])){
+          printf("Entro");
+          exit(-1);
+        }else{
+          execvp(vector[0],vector);
+        }   
+      }else{//El papa esperará la ejecución del hijo
+          wait(NULL);
+      }
 
   }
 
