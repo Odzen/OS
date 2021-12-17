@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdlib.h>
+
 
 int main(void) {
 	pid_t bash = getppid();//PID de la terminal
