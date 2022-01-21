@@ -16,10 +16,10 @@ int main() {
                // Posicion 0: Entrada estandar. Posicion 1: Salida estandar
 
   //Vector que guarda los comandos que ejecuta el padre
-  char *vectorDad= {"cat","/etc/hosts", NULL};
+  char *const vectorDad[]= {"cat","/etc/hosts", NULL};
 
     //Vector que guarda los comandos que ejecuta el padre
-  char *vectorSon= {"sort", NULL};
+  char *const vectorSon[]= {"sort", NULL};
 
  
   if (pipe(fd) == -1) { //Si el valor que se devuelve es -1
@@ -44,7 +44,7 @@ int main() {
 	dup2(fd[READ], STDIN_FILENO);
 
 	// Ejecutar el vectorSon, con el comando sort
-	 execvp(vectorSon[0], vectorSon, NULL);
+	 execvp(vectorSon[0], vectorSon);
 
   case -1: // Si el valor que devuelve pid es -1
 	perror("fork() failed)"); // es un error
@@ -64,6 +64,6 @@ int main() {
 
 	// Ejecutar el vectorDad, con el comando cat /etc/hosts
 
-	 execvp(vectorDad[0], vectorDad , NULL);
+	 execvp(vectorDad[0], vectorDad);
   }
 }
