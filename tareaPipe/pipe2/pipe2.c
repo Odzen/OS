@@ -18,7 +18,7 @@ int main() {
   //Vector que guarda los comandos que ejecuta el padre
   char *const vectorDad[]= {"cat","/etc/hosts", NULL};
 
-    //Vector que guarda los comandos que ejecuta el padre
+    //Vector que guarda los comandos que ejecuta el hijo
   char *const vectorSon[]= {"sort", NULL};
 
  
