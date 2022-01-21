@@ -18,11 +18,12 @@ int main(){
 
   pid = fork();
   int numero_random;
+  
   switch(pid){
      
     case -1: // Error
-      printf("No se ha podido crear un hijo \n");
-      exit(-1);
+      printf("fork() failed) \n");
+      exit(EXIT_FAILURE);
       break;
     case 0: // Hijo
       close(fd[1]); // Cierra el descriptor de escritura
