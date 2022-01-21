@@ -5,6 +5,10 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <time.h>
+#include<stdio.h> 
+#include<fcntl.h> 
+#include<errno.h> 
+#include<assert.h>
 
 
 //#define READ  0 // Entrada estandar de un proceso valor 0
@@ -17,13 +21,14 @@ int main() {
   //int   fd[2]; // Guarda lo que devuelve la llamada al sistema pipe
                // Posicion 0: Entrada estandar. Posicion 1: Salida estandar
 
-  //int fd,sz,sz2,numero_random;
+  int fd,fd2,sz,sz2,numero_random;
 
-  int numero_random,num;
+  //int numero_random,num;
 
   char *archivo= "archivo.txt";
 
-  FILE *fd;
+  //FILE *fd;
+  //FILE *fd2;
 
 
  	/*
@@ -39,43 +44,74 @@ int main() {
   switch(pid = fork()) {
 
   // Si el valor que devuelve pid es 0, es el hijo
-  case 0: 
+  case 0:
+
 
   printf("Entra al hijo\n");
 
+  close(fd);
 
-  //int fd = open("file.txt", O_RDONLY);
+  int fd2 = open("file2.txt", O_RDONLY | O_CREAT);
+
+	printf("fd hijo: %d \n", fd2);
+	printf("fd padre: %d \n", fd);
+
+  dup2(fd2,fd);
+
+  //write(fd, &numero_random, sizeof(numero_random));
+  
+  
 
 
-	//if (fd < 0) { perror("No se pudo cerrar el archivo"); exit(1); } 
+  assert(fd2 >= 0);
+
+
+	//if (fd2 < 0) { perror("No se pudo cerrar el archivo"); exit(1); } 
 
 	//int sz= read(fd, c, 10); 
 
-  fd= fopen(archivo,"r");
+	
+  /*
+  fd2= fopen(archivo,"r");
 
   if(fd==NULL){
   	fprintf(stderr, "Archivo no encontrado en hijo\n");
   }
+  printf(fd2);
+	
+	*/
 
 
+  printf("Entra al hijo paso open\n");
+
+  /*
 	while(getw(fd)!=EOF)
-   {
+   {	
+   		   printf("Entra while hijo\n");
+
       num= getw(fd);
       printf("Numero random leido es: %d \n", num);
    }
    fclose(fd);
+   */
+   printf("Entra al hijo paso todo\n");
 
    /*
-   if (close(fd) < 0) 
+   if (close(fd2) < 0) 
 	{ 
-	  perror("No se pudo cerrar el archivo"); 
+	  perror("No se pudo cerrar el archivo fd2\n"); 
 	  exit(1); 
 	}
 	printf("closed the fd.\n");
 	*/
 
+   break;
+
 
   case -1: // Si el valor que devuelve pid es -1
+  printf("Entra al fork\n");
+  printf("fd hijo: %d \n", fd2);
+  printf("fd padre: %d \n", fd);
 	perror("fork() failed)"); // es un error
 	exit(EXIT_FAILURE);// se sale de la ejecucion
 
@@ -84,24 +120,57 @@ int main() {
 
   default:
 
+  	
+
   	printf("Entra al padre\n");
+
+
+  	close(fd2);
+
+
+
+  	fd = open("file1.txt",   O_CREAT | O_WRONLY);
+
+
+  	printf("fd hijo: %d \n", fd2);
+		printf("fd padre: %d \n", fd);
+
+
 		srand(time(NULL));
   	numero_random = rand() % 1000 + 1;
 
   	printf("Numero random creado es: %d \n", numero_random);
-  	//fd = open("file.txt", O_WRONLY | O_CREAT | O_EXCL);
+
+  	dup2(fd,1);
+
+  	printf("%d",numero_random);
+
+  	//write(fd, &numero_random, sizeof(numero_random));
+  	
 
 
-  	fd= fopen(archivo,"w");
+  	//fd= fopen(archivo,"w");
+  	assert(fd >= 0);
 
-  	if(fd==NULL){
-  		fprintf(stderr, "Archivo no encontrado en padre\n");
-  		exit(2);
-  	}
+  	break;
+  	//close(fd);
 
-  	putw(numero_random,fd);
+  	/*
+  	if (close(fd) < 0) 
+		{ 
+	  perror("No se pudo cerrar el archivo fd\n"); 
+	  exit(1); 
+		}
+		*/
 
-  	fclose(fd);
+  	//if(fd==NULL){
+  		//fprintf(stderr, "Archivo no encontrado en padre\n");
+  		//exit(2);
+  	//}
+
+  	//putw(numero_random,fd);
+
+  	//fclose(fd);
 
 
   	/*if (fd ==-1) 
@@ -127,4 +196,6 @@ int main() {
 
 
   }
+
+  return 0;
 }
