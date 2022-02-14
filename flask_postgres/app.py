@@ -1,7 +1,7 @@
 from sqlalchemy import PrimaryKeyConstraint
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
+from pprint import pprint
 
 ##Creando APP
 app=Flask(__name__)
@@ -23,12 +23,20 @@ class User(db.Model):
     username=db.Column(db.String(80),unique=True)
     email=db.Column(db.String(120), unique=True)
 
-    def __init__(slef,username,email):
+    def __init__(self,username,email):
         self.username=username
         self.email=email
     
     def __repr__(self):
         return '<User %r>' % self.username
+
+db.create_all()
+
+# Create a user.
+me = User('admin', 'admin@example.com')
+db.session.add(me)
+db.session.commit()
+
 
 
 @app.route('/')
