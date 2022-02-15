@@ -15,7 +15,6 @@ app=Flask(__name__)
 #En el caso de postgres es: postgresql://postgres:password@localhost/flaskmovie
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:postgres2819@localhost/flaskmovie'
 
-
 ##Creado db objects y pasar la app
 db=SQLAlchemy(app)
 
@@ -29,6 +28,8 @@ class User(db.Model):
     
     def __repr__(self):
         return '{}'.format(self.id)
+
+
 
 #Funcion que me devuelve un contador
 def get_hit_count():
@@ -55,10 +56,12 @@ def get_hit_count():
 @app.route('/')
 
 def index():
+    #Creo la tabla a partir del esquema
+    db.create_all()
+    db.session.commit()
     hits=get_hit_count()
     return 'hello {} times flask\n'.format(hits)
 
-#Elimino tabla
-User.__table__.drop(sqla.create_engine("postgresql://postgres:postgres2819@localhost/flaskmovie", echo=True))
-#Vuelvo a crear la tabla a partir del esquema
-db.create_all()
+#Elimino tabla, para reiniciar secuencia
+db.drop_all()
+db.session.commit()
