@@ -19,12 +19,12 @@ app.config.from_object("config.Config")
 db=SQLAlchemy(app)
 
 ##Crear tablas y esquema de la base de datos
-class User(db.Model):
+class Count(db.Model):
     id=db.Column(db.Integer, primary_key=True,autoincrement=True)
-    username=db.Column(db.String(80))
+    countname=db.Column(db.String(80))
 
-    def __init__(self,username):
-        self.username=username
+    def __init__(self,countname):
+        self.countname=countname
     
     def __repr__(self):
         return '{}'.format(self.id)
@@ -35,10 +35,10 @@ class User(db.Model):
 def get_hit_count():
     retries = 5
     try:
-        me = User('user')
+        me = Count('juan_mavelyn')
         db.session.add(me)
         db.session.commit()
-        list=User.query.all()
+        list=Count.query.all()
         ##Accedo al valor del último que inserté, que vendría siendo len(list)-1
         value=list[len(list)-1]
         #Si quisiera borrar el registro insertado
