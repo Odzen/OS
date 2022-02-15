@@ -13,7 +13,7 @@ app=Flask(__name__)
 #SQLALCHEMY_DATABASE_URI -> key value
 #Each database has a different config string
 #En el caso de postgres es: postgresql://postgres:password@localhost/flaskmovie
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:postgres2819@localhost/flaskmovie'
+app.config.from_object("config.Config")
 
 ##Creado db objects y pasar la app
 db=SQLAlchemy(app)

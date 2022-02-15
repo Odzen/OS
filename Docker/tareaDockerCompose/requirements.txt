@@ -1,7 +1,3 @@
-flask
-psycopg2
-Error
-time
-PrimaryKeyConstraint
-SQLAlchemy
-sqlalchemy
+Flask==1.1.2
+Flask-SQLAlchemy==2.5.1
+psycopg2-binary==2.8.6
