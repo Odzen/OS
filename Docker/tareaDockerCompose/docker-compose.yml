@@ -22,5 +22,5 @@ services:
     networks:
       - default
     ports:
-      - 5432:5432
+      - 5032:5432
     restart: always
