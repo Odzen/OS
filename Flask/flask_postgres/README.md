@@ -3,4 +3,5 @@ Python mini excercise, that will create all an app in flask that will use postgr
 ## To execute:
 - export FLASK_APP=app.py
 - flask run
+
 Keep in mind that the app.config changes depending on the user and password that is installed for postgres on each machine. To execute change the line #16 to 'postgresql://user:password@localhost/database_name'
