@@ -8,15 +8,13 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/flaskmovie
     networks:
-       network1:
+      - network1
     ports:
       - 5000:5000
     restart: always
     volumes:
-       - api:/usr/share/docker_api/ 
+       - api:/usr/share/docker_api/
 
-  networks:
-      network1:
   db:
     environment:
       POSTGRES_USER: postgres
@@ -24,12 +22,12 @@ services:
       POSTGRES_DB: flaskmovie
     image: postgres:14-alpine
     networks:
-      network1:
+      - network1
     ports:
       - 5032:5432
     restart: always
     volumes:
-      - pgdata:./data/db:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
 
 networks:
   network1:
