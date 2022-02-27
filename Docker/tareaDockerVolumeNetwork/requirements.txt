@@ -1,0 +1,5 @@
+flask
+postgres
+psycopg2
+SQLAlchemy
+Flask-SQLAlchemy

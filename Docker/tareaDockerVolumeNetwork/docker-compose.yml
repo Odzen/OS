@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/flaskmovie
+    networks:
+       network1:
+    ports:
+      - 5000:5000
+    restart: always
+    volumes:
+       - api:/usr/share/docker_api/ 
+
+  networks:
+      network1:
+  db:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: flaskmovie
+    image: postgres:14-alpine
+    networks:
+      network1:
+    ports:
+      - 5032:5432
+    restart: always
+    volumes:
+      - pgdata:./data/db:/var/lib/postgresql/data
+
+networks:
+  network1:
+
+volumes:
+  pgdata:
+  api:
+
+   
