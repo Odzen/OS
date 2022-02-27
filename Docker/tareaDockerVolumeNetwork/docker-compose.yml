@@ -12,7 +12,6 @@ services:
       - network2
     ports:
       - 5000:5000
-    restart: always
 
   db:
     environment:
@@ -24,7 +23,6 @@ services:
       - network1
     ports:
       - 5032:5432
-    restart: always
     volumes:
       - pgdata:/var/lib/postgresql/data
 

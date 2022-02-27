@@ -63,5 +63,5 @@ def index():
     return 'hello {} times flask\n'.format(hits)
 
 #Elimino tabla, para reiniciar secuencia
-db.drop_all()
-db.session.commit()
+#db.drop_all()
+#db.session.commit()
