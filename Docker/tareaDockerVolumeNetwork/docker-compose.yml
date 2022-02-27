@@ -9,11 +9,10 @@ services:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/flaskmovie
     networks:
       - network1
+      - network2
     ports:
       - 5000:5000
     restart: always
-    volumes:
-       - api:/usr/share/docker_api/
 
   db:
     environment:
@@ -29,11 +28,18 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  interprete:
+    image: alpine
+    stdin_open: true
+    tty: true
+    networks:
+      - network2
+
 networks:
   network1:
+  network2:
 
 volumes:
   pgdata:
-  api:
-
+    external: true
    
