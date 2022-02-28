@@ -3,5 +3,5 @@ El objetivo de la tarea es acercarse y afianzar su comprensión respecto a estos
 
 ## Arquitectura
 <p align="center">
-	<img src=arqui.png>
+	<img src=img/arqui.png>
 </p>
