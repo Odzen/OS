@@ -8,3 +8,5 @@ a problem we study in concurrent programming.
 
 The key challenge, then, is to write the routines get forks() and put forks() such that there is no deadlock, no philosopher starves and never gets to eat, and concurrency is high (i.e., as many philosophers can 
 eat at the same time as possible).
+
+![Alt text](./img.png?raw=true "Table Distribution")
