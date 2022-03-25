@@ -113,7 +113,7 @@ def obtenerArgumentos():
                         type=int, default=5, help="Número de filósofos (hilos)")
     parser.add_argument("-r", "--rafaga_comer", 
                         type=int, default=4, help="Ráfaga de comer de los filósofos")
-    parser.add_argument("-t", "--tiempo_total", 
+    parser.add_argument("-t", "--tiempo_total",  
                         type=int, default=10, help="Tiempo total que requiere comer un filosofo para estar satisfecho")
     parser.add_argument("-i", "--num_intentos", 
                         type=int, default=10, help="Cantidad de intentos antes de que el filósofo muera de inanición")
