@@ -1,4 +1,3 @@
-
 # Se importan las librerias
 import argparse
 import threading
@@ -45,7 +44,7 @@ def liberarPalillos(id_filosofo):
     candados[id_filosofo].release()  #palillo izquierdo
     candados[(id_filosofo - 1) % CANTIDAD_FILOSOFOS].release() #palillo derecho
 
-# Función para la simulación de cada filosofo que son los hilos
+# Función para la simulación de cada filosofo que son los hilos-------------------
 def iniciarSimulacion(id_filosofo):
     """Función que va ejecutar cada filosofo(hilo)"""
 
@@ -76,7 +75,7 @@ def iniciarSimulacion(id_filosofo):
             # Se imprime el filosofo y el tiempo filosofando
             print(f"[*] Filosofo {id_filosofo} filosofando[{tiempo_filosofar:.2f} seg.]")
                      
-              # Se pausa o suspende la ejecución del hilo de llamadad durante el tiempo_filosofar
+              # Se pausa o suspende la ejecución del hilo de llamada durante el tiempo_filosofar
             time.sleep(tiempo_filosofar)
         else:
             # Cuando el estado del filosofo es hambriento ya tiene un intento fallido
@@ -96,7 +95,7 @@ def iniciarSimulacion(id_filosofo):
             print(f"[ ] Filosofo {id_filosofo} esperando tenedores"
                   f" Intento {intentos_fallidos} [{tiempo_reintentar:.2f} seg.]")
 
-            # Se pausa o suspende la ejecución del hilo de llamadad durante el tiempo_reintentar
+            # Se pausa o suspende la ejecución del hilo de llamada durante el tiempo_reintentar
             time.sleep(tiempo_reintentar)
     
 
